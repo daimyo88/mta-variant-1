@@ -1,0 +1,16 @@
+{
+    "data-entry-created": "New data entry is added",
+    "data-entry-deleted": "Data entry is deleted",
+    "forgot-password-success": "test text need to check",
+    "info-updated": "Info updated",
+    "user-created": "New user is created",
+    "location-created": "New location is added",
+    "transport-created": "New transport is added",
+    "profile-deleted": "User profile is deleted",
+    "location-deleted": "Location is deleted",
+    "transport-deleted": "The transport is deleted",
+    "profile-updated": "User profile is updated",
+    "profile-updated-check-email": "The profile is updated. Confirmation link was sent to your new email address",
+    "reset-password-email-sent": "Confirmation link was sent to your email address",
+    "user-email-changed": "Email updated"
+}

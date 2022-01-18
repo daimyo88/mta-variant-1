@@ -1,0 +1,14 @@
+{
+    "locales": ["en"],
+    "defaultLocale": "en",
+    "pages": {
+      "*": [
+        "translation",
+        "errors",
+        "menu",
+        "success-messages",
+        "modals",
+        "product-groups"
+      ]
+    }
+}

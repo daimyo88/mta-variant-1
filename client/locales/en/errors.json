@@ -1,0 +1,23 @@
+{
+    "account-already-created": "The account is alreade created",
+    "email-not-confirmed": "The email address is not confirmed",
+    "expired-or-wrong-token": "Session expired",
+    "invalid-email": "Invalid email address",
+    "invalid-inputs": "Invalid inputs",
+    "NetworkError": "Network error",
+    "not-authorized": "You are not authorized to perform this action",
+    "passwords-should-match": "Passwords should match",
+    "password-length": "The password must contain a minimum of 8 and a maximum of 16 characters",
+    "privacy-policy": "You have to accept Privacy policy terms",
+    "required-field": "Required field",
+    "server-error": "Server error",
+    "unsupported-format": "Unsupported format",
+    "user-does-not-exist": "User does not exist",
+    "user-not-found": "User not found",
+    "location-not-found": "Location not found",
+    "user-exists": "User with this email address already exists",
+    "location-exists": "Location already exists",
+    "wrong-password": "Wrong password. Please try again or use 'Forgot password' option",
+    "wrong-data": "Wrong data",
+    "user-already-created": "User already created"
+}

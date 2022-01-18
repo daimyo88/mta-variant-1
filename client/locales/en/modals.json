@@ -1,0 +1,11 @@
+{
+    "cancel": "Cancel",
+    "default-prefix": "Are you sure you want ",
+    "delete-data-entry": "to delete this data entry ({{ date }})?",
+    "delete-profile": "to delete this user profile ({{ email }})?",
+    "delete-transport": "to delete this transport ({{ name }})?",
+    "delete-location": "to delete this location ({{ title }})?",
+    "logout": "to logout",
+    "ok": "OK",
+    "submit": "Submit"
+}

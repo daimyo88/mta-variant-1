@@ -1,7 +1,7 @@
 # My transportation assistant
 This a pet project of mine where I can share/practice skills in web development. The idea of project is a closed CRM for a group of road freight transportation companies where they can share data about their transportation prices and see statistics for average prices, product groups (based on other users input).
 
-## Technologies:
+## Technologies
 
 ### Front-end:
 #### React/Nextjs
@@ -25,7 +25,12 @@ This a pet project of mine where I can share/practice skills in web development.
 
 ## To Run the project
 
-- Rename ./client/.env.example and ./server/.env.example to .env with changing variables to yours ones
-- Please ensure docker agent is running and then docker-compose up from the root directory 
+- Rename ./client/.env.example and ./server/.env.example to .env with changing variables to yours ones.
+- Please ensure docker agent is running and then run 
+```
+docker-compose up 
+```
+
+from the root directory.
 
 

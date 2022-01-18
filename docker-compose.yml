@@ -1,0 +1,30 @@
+version: '2.4'
+
+services:
+
+  frontend:
+    image: frontend
+    build:
+      context: client
+      target: dev
+    env_file: ./client/.env
+    ports:
+      - '3000:3000'
+    depends_on:
+      - backend
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+      - /app/.next
+
+  backend:
+    image: backend
+    build:
+      context: server
+      target: dev
+    env_file: ./server/.env
+    ports:
+      - '5000:5000'
+    volumes:
+      - ./server:/app
+      - /app/node_modules

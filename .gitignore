@@ -1,0 +1,13 @@
+# nextjs cache
+/client/.next
+
+# node_modulea
+/client/node_modules
+/server/node_modules
+
+# env files
+/client/.env
+/server/.env
+
+
+
