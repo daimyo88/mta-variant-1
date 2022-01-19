@@ -12,12 +12,8 @@ const userSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, minlength: 8 },
   role: { type: String, required: true },
-  auth2f: { type:Boolean, required: true, default: false },
-  auth2fSecret: { type: Schema.Types.Mixed, required: true },
-  auth2fConfirmed: { type:Boolean, required: true, default: false },
   confirmedEmail: { type: Boolean, required: true, default: false },
-  status: { type: Boolean, default: true },
-  ships: [{ type: mongoose.Types.ObjectId, ref: 'Ship' }],
+  transports: [{ type: mongoose.Types.ObjectId, ref: 'Transport' }],
   dataEntries: [{ type: mongoose.Types.ObjectId, ref: 'DataEntry' }],
 });
 

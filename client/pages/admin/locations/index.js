@@ -45,7 +45,7 @@ const useStyles = makeStyles( theme => ({
         minWidth: '800px'
     },
     head: {
-        color: '#fff',
+        color: theme.palette.text.secondary.main,
         fontWeight: 'bold',
         fontSize: '16px',
         background: theme.palette.secondary.main

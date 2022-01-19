@@ -1,5 +1,5 @@
 const User = require('../../models/user');
-const Ship = require('../../models/ship');
+const Ship = require('../../models/transport');
 const HttpError = require('../../utils/http-error');
 const mongoose = require('mongoose');
 

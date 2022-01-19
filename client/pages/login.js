@@ -32,18 +32,13 @@ export default function Login() {
   const classes = useStyles(theme);
 
   const [loading, setLoading] = useState(false);
-  const [auth2f, setAuth2f] = useState(false);
 
   const loginHandler = async (data) => {
     setLoading(true);
     try {
-      const response = await Api.post("/api/auth/login", data);
-      if (response.data.auth2f) {
-        setAuth2f(true);
-      } else {
-        await user.mutate();
-        router.push("/admin/stats");
-      }
+      await Api.post("/api/auth/login", data);
+      await user.mutate();
+      router.push("/admin/stats");
     } catch (e) {
       console.log(e);
       setLoading(false);
@@ -62,23 +57,19 @@ export default function Login() {
         >
           <IntroLogo />
           <IntroHeading text={t("translation:login-heading")} />
-          {!auth2f && (
-            <>
-              <LoginForm submitHandler={loginHandler} />
-              <Grid
-                container
-                style={{ marginTop: "20px" }}
-                justifyContent="center"
-              >
-                <span>{t("translation:forgot-password")}</span>
-                <Link href="/forgot-password">
-                  <a className={classes.forgotPasswordLink}>
-                    {t("translation:click-here")}
-                  </a>
-                </Link>
-              </Grid>
-            </>
-          )}
+          <LoginForm submitHandler={loginHandler} />
+          <Grid
+            container
+            style={{ marginTop: "20px" }}
+            justifyContent="center"
+          >
+            <span>{t("translation:forgot-password")}</span>
+            <Link href="/forgot-password">
+              <a className={classes.forgotPasswordLink}>
+                {t("translation:click-here")}
+              </a>
+            </Link>
+          </Grid>
           {loading && <Loader />}
         </Paper>
       </Container>

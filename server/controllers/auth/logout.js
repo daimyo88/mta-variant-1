@@ -1,5 +1,5 @@
 const logout = async (req, res, next) => {
-    res.clearCookie("citbo_token");
+    res.clearCookie("mta1_token");
     res.json({});
   };
 

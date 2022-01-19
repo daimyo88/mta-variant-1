@@ -1,5 +1,5 @@
 {
-  "name": "citbo",
+  "name": "mta",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -22,8 +22,8 @@
     "json2csv": "^5.0.1",
     "jsonwebtoken": "^8.5.1",
     "mime-types": "^2.1.27",
-    "mongoose": "^6.1.7",
-    "mongoose-unique-validator": "^3.0.0",
+    "mongoose": "^5.2.1",
+    "mongoose-unique-validator": "^2.0.3",
     "multer": "^1.4.2",
     "qrcode": "^1.4.4",
     "send": "^0.17.1",

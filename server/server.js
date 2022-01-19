@@ -24,7 +24,7 @@ app.use(cors(corsOptions));
 
 app.use('/api/auth', router.authRoutes);
 app.use('/api/users', router.userRoutes);
-app.use('/api/ships', router.shipsRoutes);
+app.use('/api/transports', router.transportsRoutes);
 app.use('/api/locations', router.locationsRoutes);
 app.use('/api/data-entries', router.dataEntriesRoutes);
 app.use('/api/stats', router.statsRoutes);
@@ -40,7 +40,7 @@ app.use((error, req, res, next) => {
   }
 
   if(error.code === 401) {
-    res.clearCookie("citbo_token");
+    res.clearCookie("mta1_token");
     res.status(error.code);
     res.json({ message: error.message});
   } else {
@@ -51,7 +51,12 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    process.env.DB_CONNECTION
+    process.env.DB_CONNECTION,
+    { 
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+      useCreateIndex: true
+    },
   )
   .then(() => {
     app.listen(process.env.PORT || 5000);

@@ -7,26 +7,22 @@ const autoLogin = async (req, res, next) => {
 
   try {
 
-  if (req.method === 'OPTIONS') {
-    return next();
-  }
+    if (req.method === 'OPTIONS') {
+      return next();
+    }
 
-  const token = req.cookies.citbo_token;
-  const user = await getUser(token, next);
+    const token = req.cookies.mta1_token;
+    const user = await getUser(token, next);
 
-  if(!user) {
-    return res.json({});
-  }
+    if(!user) {
+      return res.json({});
+    }
 
-  if(!user.status) {
-    return res.json({});
-  }
-
-  res.json({ ...user });
+    res.json({ ...user });
 
   } catch(e) {
     return next(e)
-  }
+  } 
 
 }
 

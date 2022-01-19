@@ -20,10 +20,6 @@ const login = async (req, res, next) => {
       throw new HttpError('email-not-confirmed', 401);
     }
 
-    if(!user.status) {
-      throw new HttpError('inactive-account', 401);
-    }
-  
     isValidPassword = await bcrypt.compare(password, user.password);
 
     if (!isValidPassword) {
@@ -31,19 +27,10 @@ const login = async (req, res, next) => {
     }
     
     const authToken = user.generateAuthToken();
-  
-    if(user.auth2f) {
-      res
-        .cookie("citbo_user", authToken, { httpOnly: true })
-        .json({
-          auth2f: true
-        }); 
-      
-    } else {
-      res
-        .cookie("citbo_token", authToken, { httpOnly: true })
-        .json({});
-    }
+
+    res
+      .cookie("mta1_token", authToken, { httpOnly: true })
+      .json({});
 
   } catch (err) {
     return next(err);

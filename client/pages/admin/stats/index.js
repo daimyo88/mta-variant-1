@@ -8,8 +8,8 @@ export default function Page() {
 
     return (
         <Admin> 
-            <SpotMarketFreightPrice />
-            <ProductGroupsRatio />
+            {/* <SpotMarketFreightPrice />
+            <ProductGroupsRatio /> */}
         </Admin>
     )
 }

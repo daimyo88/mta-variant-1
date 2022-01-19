@@ -35,7 +35,7 @@ const completeUserAccount = async (req, res, next) => {
     const authToken = user.generateAuthToken();
     res
         .clearCookie("citbo_user")
-        .cookie("citbo_token", authToken, { httpOnly: true })
+        .cookie("mta1_token", authToken, { httpOnly: true })
         .json({
             id: user.id,
             firstName: user.firstName,

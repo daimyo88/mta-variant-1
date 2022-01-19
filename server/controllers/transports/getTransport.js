@@ -1,4 +1,4 @@
-const Ship = require('../../models/ship');
+const Ship = require('../../models/transport');
 const HttpError = require('../../utils/http-error');
 
 const getShip = async (req, res, next) => {

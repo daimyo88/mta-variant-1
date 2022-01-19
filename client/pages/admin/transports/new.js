@@ -5,32 +5,25 @@ import Admin from '../../../layouts/Admin';
 import Api from '../../../axios/Api';
 import Loader from '../../../components/loaders/Loader';
 
-import NewShipForm from '../../../components/forms/ships/ShipForm';
+import TransportForm from '../../../components/forms/transports/TransportForm';
 
 export default function Page() {
     const {t} = useTranslation();
     const [loading, setLoading] = useState(false);
 
     const initialValues = {
-        shipName: '',
-        dwt: '',
-        shipLength: '',
-        shipCategory: '',
-        shipWidth: '',
-        shipVolume: '',
-        productGroup: '',
-        coated: false,
-        piping: '',
-        heated: false,
-        shipProfile: '',
-        flag: '',
-        tanksQuantity: '',
+        model: '',
+        maxWeight: '',
+        height: '',
+        volume: '',
+        category: '',
+        coated: true,
     }
 
-    const createShip = async (values, formik) => {
+    const createTransport = async (values, formik) => {
         try {
             setLoading(true);
-            await Api.post('/api/ships', values); 
+            await Api.post('/api/transports', values); 
             formik.resetForm(initialValues);
           } catch(e) {
             console.log(e);   
@@ -42,13 +35,13 @@ export default function Page() {
     return (
         <Admin> 
             <PageTitle>
-                { t('translation:new-ship')}
+                { t('translation:new-transport')}
             </PageTitle>
             { loading && <Loader />}
-            <NewShipForm 
+            <TransportForm 
                 submitButtonText={t('translation:submit')} 
                 initialValues={ initialValues } 
-                submitHandler={ createShip } 
+                submitHandler={ createTransport } 
             />
         </Admin>
     )

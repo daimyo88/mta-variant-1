@@ -33,9 +33,6 @@ const getUser = async (token, next) => {
         token: authToken,
         ships: user.ships,
         dataEntries: user.dataEntries
-    //   options: {
-    //     auth2fSecret: user.auth2fSecret
-    //   }
     }  
   } catch(e) {
     return next(e);

@@ -13,36 +13,30 @@ import Admin from '../../../../layouts/Admin';
 import Api from '../../../../axios/Api';
 import Loader from '../../../../components/loaders/Loader';
 
-import PortAreaForm from '../../../../components/forms/locations/PortArea';
+import RegionForm from '../../../../components/forms/locations/Region';
 import useUser from '../../../../hooks/useUser';
 import Modal from '../../../../components/modals/Modal';
-
-const useStyles = makeStyles( theme => ({
-
-
-  }));
 
 const fetcher = url => Api.get(url);
 
 export default function Page() {
     const theme = useTheme();
-    const classes = useStyles(theme);
     const {t} = useTranslation();
     const [loading, setLoading] = useState(false);
     const router = useRouter();
-    const { mutate } =  useSWR("/api/locations/port-areas/" + router.query.id, fetcher);
-    const portArea = useSWR("/api/locations/port-areas/" + router.query.id, fetcher).data?.data;
+    const { mutate } =  useSWR("/api/locations/regions/" + router.query.id, fetcher);
+    const region = useSWR("/api/locations/regions/" + router.query.id, fetcher).data?.data;
     const user = useUser();
     const [deleteModal, setDeleteModal] = useState(false);
 
     const initialValues = {
-        title: portArea?.title || '',
+        name: region?.name || '',
     }
 
-    const updatePortArea = async (values, formik) => {
+    const updateRegion = async (values, formik) => {
         try {
             setLoading(true);
-            await Api.patch('/api/locations/port-areas/' + router.query.id, values); 
+            await Api.patch('/api/locations/regions/' + router.query.id, values); 
             mutate();
           } catch(e) {
             console.log(e);   
@@ -51,16 +45,16 @@ export default function Page() {
           }
     }
 
-    const deletePortArea = async (id) => {
+    const deleteRegion = async (id) => {
         const data = {
-            portArea: {
+            region: {
                 _id: router.query.id
             }
         }
         
         try {
             setDeleteModal(false);
-            await Api.post('/api/locations/port-areas/delete', data);
+            await Api.post('/api/locations/regions/delete', data);
             router.push('/admin/locations?pp=&p=&s=');
         } catch(e) {
             console.log(e);
@@ -75,8 +69,8 @@ export default function Page() {
 
     return (
         <Admin> 
-            { portArea && <PageTitle>
-                { `${t('translation:port-area')}: ${portArea?.title}`}             
+            { region && <PageTitle>
+                { `${t('translation:region')}: ${region?.name}`}             
                 <Tooltip arrow title={t('translation:delete')} style={{marginLeft: '20px', transform:'translateY(-2px)'}}>
                     <IconButton onClick={() => {setDeleteModal(true)}}>
                         <DeleteIcon />
@@ -84,22 +78,22 @@ export default function Page() {
                 </Tooltip>  
             </PageTitle> }
             { loading && <Loader />}
-            { !portArea && <Loader />}
+            { !region && <Loader />}
 
-            { portArea && <>
-                <PortAreaForm 
+            { region && <>
+                <RegionForm 
                     submitButtonText={t('translation:submit')} 
                     initialValues={ initialValues } 
-                    submitHandler={ updatePortArea } 
-                    ports = {portArea?.ports}
+                    submitHandler={ updateRegion } 
+                    cities = {region?.cities}
                 />
             </> }
 
             <Modal 
                 open={deleteModal} 
                 handleClose={() => {setDeleteModal(false)}}
-                handleConfirm={ deletePortArea }
-                text= {t('modals:default-prefix') + t('modals:delete-location', { title: portArea?.title })}
+                handleConfirm={ deleteRegion }
+                text= {t('modals:default-prefix') + t('modals:delete-location', { title: region?.name })}
             />
 
         </Admin>

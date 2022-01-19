@@ -1,5 +1,5 @@
 const HttpError = require('../../utils/http-error');
-const Ship = require('../../models/ship');
+const Ship = require('../../models/transport');
 
 const getShips = async (req, res, next) => {
     try {

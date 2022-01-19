@@ -3,18 +3,18 @@ const { check } = require('express-validator');
 const checkToken = require('../middleware/check-token');
 const checkCanManageShip = require('../middleware/check-can-manage-ship');
 const validateInputs = require('../middleware/validate-inputs');
-const shipsController = require('../controllers/ships');
+const controller = require('../controllers/transports');
 
 const router = express.Router();
 
 router.get('/',
     checkToken,
-    shipsController.getShips);
+    controller.getTransports);
 
 router.get('/:sid',
     checkToken,
     checkCanManageShip,
-    shipsController.getShip);
+    controller.getTransport);
     
 router.post('/', 
     checkToken,
@@ -31,7 +31,7 @@ router.post('/',
         .not()
         .isEmpty(),
     validateInputs,
-    shipsController.createShip);
+    controller.createTransport);
 
 router.patch('/:sid', 
     checkToken,
@@ -49,11 +49,11 @@ router.patch('/:sid',
         .not()
         .isEmpty(),
     validateInputs,
-    shipsController.updateShip);
+    controller.updateTransport);
 
 router.post('/delete',
     checkToken,
     checkCanManageShip,
-    shipsController.deleteShip);
+    controller.deleteTransport);
 
 module.exports = router;

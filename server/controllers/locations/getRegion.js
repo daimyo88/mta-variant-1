@@ -1,18 +1,17 @@
-const PortArea = require('../../models/region');
+const Region = require('../../models/region');
 const HttpError = require('../../utils/http-error');
 
-const getPortArea = async (req, res, next) => {
+const getRegion = async (req, res, next) => {
 
     try {
-        const portAreaId = req.params.pid;
-        const requestedPortArea = await PortArea.findById(portAreaId).populate('ports').lean();
+        const regionId = req.params.pid;
+        const requestedRegion = await Region.findById(regionId).populate('cities').lean();
 
-        if(!requestedPortArea) {
+        if(!requestedRegion) {
             throw new HttpError('item-not-found', 404);
         }
 
-        res
-            .json(requestedPortArea); 
+        res.json(requestedRegion); 
             
     } catch(e) {
         return next(e);
@@ -20,4 +19,4 @@ const getPortArea = async (req, res, next) => {
 
 }
 
-module.exports = getPortArea;
+module.exports = getRegion;
