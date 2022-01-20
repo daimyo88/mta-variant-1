@@ -1,36 +1,32 @@
-const User = require('../../models/user');
-const Ship = require('../../models/transport');
-const HttpError = require('../../utils/http-error');
-const mongoose = require('mongoose');
+const User = require("../../models/user");
+const Transport = require("../../models/transport");
+const HttpError = require("../../utils/http-error");
+const mongoose = require("mongoose");
 
-const deleteShip = async (req, res, next) => {
-    
-    try {
-        const { ship } = req.body;
-        const requestedShip = await Ship.findById(ship._id);
+module.exports = async (req, res, next) => {
+  try {
+    const { transport } = req.body;
+    const requestedTransport = await Transport.findById(transport._id);
 
-        if(!requestedShip) {
-            throw new HttpError('item-not-found', 404);
-        }
-
-        const shipOwner = await User.findById(requestedShip.user);
-
-        if(!shipOwner) {
-            throw new HttpError('user-not-found', 404);
-        }
-
-        const sess = await mongoose.startSession();
-        sess.startTransaction();
-        await requestedShip.remove({ session: sess });
-        shipOwner.ships.pull(requestedShip);
-        await shipOwner.save({ session: sess });
-        await sess.commitTransaction();
-
-        res.json({successMessage: 'ship-deleted'});
- 
-    } catch(e) {
-        return next(e);
+    if (!requestedTransport) {
+      throw new HttpError("item-not-found", 404);
     }
-}
 
-module.exports = deleteShip;
+    const owner = await User.findById(requestedTransport.user);
+
+    if (!owner) {
+      throw new HttpError("user-not-found", 404);
+    }
+
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    await requestedTransport.remove({ session: sess });
+    owner.transports.pull(requestedTransport);
+    await owner.save({ session: sess });
+    await sess.commitTransaction();
+
+    res.json({ successMessage: "transport-deleted" });
+  } catch (e) {
+    return next(e);
+  }
+};

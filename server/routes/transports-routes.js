@@ -1,7 +1,7 @@
 const express = require('express');
 const { check } = require('express-validator');
 const checkToken = require('../middleware/check-token');
-const checkCanManageShip = require('../middleware/check-can-manage-ship');
+const checkCanManageTransport = require('../middleware/check-can-manage-transport');
 const validateInputs = require('../middleware/validate-inputs');
 const controller = require('../controllers/transports');
 
@@ -13,21 +13,24 @@ router.get('/',
 
 router.get('/:sid',
     checkToken,
-    checkCanManageShip,
+    checkCanManageTransport,
     controller.getTransport);
     
 router.post('/', 
     checkToken,
-    check('shipName')
+    check('model')
         .not()
         .isEmpty(),
-    check('dwt')
+    check('category')
         .not()
         .isEmpty(),
-    check('shipLength')
+    check('maxWeight')
         .not()
         .isEmpty(),
-    check('shipCategory')
+    check('volume')
+        .not()
+        .isEmpty(),
+    check('height')
         .not()
         .isEmpty(),
     validateInputs,
@@ -35,17 +38,20 @@ router.post('/',
 
 router.patch('/:sid', 
     checkToken,
-    checkCanManageShip,
-    check('shipName')
+    checkCanManageTransport,
+    check('model')
         .not()
         .isEmpty(),
-    check('dwt')
+    check('category')
         .not()
         .isEmpty(),
-    check('shipLength')
+    check('maxWeight')
         .not()
         .isEmpty(),
-    check('shipCategory')
+    check('volume')
+        .not()
+        .isEmpty(),
+    check('height')
         .not()
         .isEmpty(),
     validateInputs,
@@ -53,7 +59,7 @@ router.patch('/:sid',
 
 router.post('/delete',
     checkToken,
-    checkCanManageShip,
+    checkCanManageTransport,
     controller.deleteTransport);
 
 module.exports = router;

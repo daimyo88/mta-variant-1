@@ -3,7 +3,7 @@ const User = require('../models/user');
 
 require('dotenv').config();
 
-const getUser = async (token, next) => {
+module.exports = async (token, next) => {
   
   try {
     let user = '';
@@ -29,15 +29,11 @@ const getUser = async (token, next) => {
         email: user.email,
         role: user.role,
         confirmedEmail: user.confirmedEmail,
-        status: user.status,
         token: authToken,
-        ships: user.ships,
+        transports: user.transports,
         dataEntries: user.dataEntries
     }  
   } catch(e) {
     return next(e);
   }
 } 
-
-   
-module.exports = getUser;

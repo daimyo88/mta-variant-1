@@ -1,22 +1,17 @@
-const Ship = require('../../models/transport');
-const HttpError = require('../../utils/http-error');
+const Transport = require("../../models/transport");
+const HttpError = require("../../utils/http-error");
 
-const getShip = async (req, res, next) => {
+module.exports = async (req, res, next) => {
+  try {
+    const transportId = req.params.sid;
+    const transport = await Transport.findById(transportId).lean();
 
-    try {
-        const shipId = req.params.sid;
-        const requestedShip = await Ship.findById(shipId).lean();
-
-        if(!requestedShip) {
-            throw new HttpError('item-not-found', 404);
-        }
-
-        res.json(requestedShip); 
-            
-    } catch(e) {
-        return next(e);
+    if (!transport) {
+      throw new HttpError("item-not-found", 404);
     }
 
-}
-
-module.exports = getShip;
+    res.json(transport);
+  } catch (e) {
+    return next(e);
+  }
+};

@@ -48,16 +48,11 @@ app.use((error, req, res, next) => {
     res.json({ message: error.message || 'unknown-error' });
   }
 });
-
+ 
 mongoose
   .connect(
-    process.env.DB_CONNECTION,
-    { 
-      useUnifiedTopology: true,
-      useNewUrlParser: true,
-      useCreateIndex: true
-    },
-  )
+    process.env.DB_CONNECTION
+  ) 
   .then(() => {
     app.listen(process.env.PORT || 5000);
     console.log('server started')

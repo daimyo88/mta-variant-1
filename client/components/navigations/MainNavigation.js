@@ -46,13 +46,13 @@ const getCollapseInitialState = (router) => {
     if(router.pathname.indexOf('data-entries') !== -1 && !router.query?.id) {
         return 'data-entries';
     }
-    if(router.pathname.indexOf('ships') !== -1 && !router.query?.id) {
-        return 'ships';
+    if(router.pathname.indexOf('transports') !== -1 && !router.query?.id) {
+        return 'transports';
     }
     if(router.pathname.indexOf('users') !== -1 && !router.query?.id) {
         return 'users';
     }
-    if(router.pathname.indexOf('port-areas') !== -1 && !router.query?.id) {
+    if(router.pathname.indexOf('locations') !== -1 && !router.query?.id) {
         return 'locations';
     }
 }

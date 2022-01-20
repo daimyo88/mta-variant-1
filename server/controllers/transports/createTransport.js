@@ -1,63 +1,50 @@
 const User = require('../../models/user');
-const Ship = require('../../models/transport');
+const Transport = require('../../models/transport');
 const HttpError = require('../../utils/http-error');
 const mongoose = require('mongoose');
 
 require('dotenv').config();
 
-const createShip = async (req, res, next) => {
+const controller = async (req, res, next) => {
     try { 
         const { 
-            shipName,
-            dwt, 
-            shipLength, 
-            shipCategory, 
-            shipWidth,
-            shipVolume,
-            productGroup,
+            model,
+            maxWeight,
+            height,
+            volume,
+            category,
             coated,
-            piping,
-            heated,
-            shipProfile,
-            flag,
-            tanksQuantity
         } = req.body;
 
-        const shipOwner = await User.findById(req.user._id);
+        const transportOwner = await User.findById(req.user._id);
 
-        if(!shipOwner) {
+        if(!transportOwner) {
             throw new HttpError('user-not-found', 404);
         }
 
-        const newShip = new Ship({
-            title: shipName,
-            dwt,
-            shipLength,
-            user: req.user._id,
-            shipCategory,
-            shipWidth,
-            shipVolume,
-            productGroup,
+        const newTransport = new Transport({
+            vehicleModel: model,
+            maxWeight,
+            category,
+            volume,
+            height,
             coated,
-            piping,
-            heated,
-            shipProfile,
-            flag,
-            tanksQuantity
+            user: req.user._id,
         })
 
         const sess = await mongoose.startSession();
         sess.startTransaction();
-        await newShip.save({ session: sess });
-        shipOwner.ships.push(newShip);
-        await shipOwner.save({ session: sess });
+        transportOwner.transports.push(newTransport);
+        await newTransport.save({ session: sess });
+        await transportOwner.save({ session: sess });
         await sess.commitTransaction();
     
-        res.json({successMessage: 'ship-created'});
+        res.json({successMessage: 'transport-created'});
 
     } catch (err) {
+        console.log(err)
         return next(err);
     }
 }
 
-module.exports = createShip;
+module.exports = controller;

@@ -1,4 +1,4 @@
-export default function setInteger(e, field, cb, max) {
+export default function setInteger(e, field, cb, max, precision) {
     let value = e.target.value;
     if(value < 0 || isNaN(value) || !value) {
       value = '';
@@ -18,8 +18,15 @@ export default function setInteger(e, field, cb, max) {
         }
     }
 
-    if(value) {
-        value = Math.floor(value)
+    if(precision && value) {
+        value = parseFloat(value);
+        value = value.toFixed(precision);
+    } else {
+        if(value) {
+            value = Math.floor(value);
+        }
+
     }
+
     cb(field, value);  
 }

@@ -14,15 +14,16 @@ export default function Page() {
     const initialValues = {
         model: '',
         maxWeight: '',
+        category: '',
         height: '',
         volume: '',
-        category: '',
         coated: true,
     }
 
     const createTransport = async (values, formik) => {
         try {
             setLoading(true);
+            console.log(values)
             await Api.post('/api/transports', values); 
             formik.resetForm(initialValues);
           } catch(e) {

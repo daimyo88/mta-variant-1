@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
 
 require('dotenv').config();
 
@@ -26,8 +25,5 @@ const dataEntrySchema = new Schema({
   freightData: { type: Schema.Types.Mixed },
   user: { type: mongoose.Types.ObjectId, required: true, ref: 'User' },
 });
-
-
-dataEntrySchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('DataEntry', dataEntrySchema);

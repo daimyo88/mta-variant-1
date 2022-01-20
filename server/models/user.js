@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
 const jwt = require('jsonwebtoken');
 
 require('dotenv').config();
@@ -27,7 +26,5 @@ userSchema.methods.generateAuthToken = function() {
   );
   return token;
 };
-
-userSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('User', userSchema);

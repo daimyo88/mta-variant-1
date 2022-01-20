@@ -1,9 +1,8 @@
-const HttpError = require('../../utils/http-error');
 const getUser = require('../../utils/get-user');
 
 require('dotenv').config();
 
-const autoLogin = async (req, res, next) => {
+module.exports = async (req, res, next) => {
 
   try {
 
@@ -25,5 +24,3 @@ const autoLogin = async (req, res, next) => {
   } 
 
 }
-
-module.exports = autoLogin;
