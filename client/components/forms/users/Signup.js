@@ -20,7 +20,6 @@ const useStyles = makeStyles( theme => ({
         marginBottom: '15px'
     },
     privacyLink: {
-        textDecoration: 'none',
         color: theme.palette.primary.main,
         fontWeight: 'bold'
     }

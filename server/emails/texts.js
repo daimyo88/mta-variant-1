@@ -1,19 +1,19 @@
 module.exports = {
     userCreated: {
-        subject: 'Welcome to CITBO',
-        text: 'To complete your account on CITBO please follow the link below:',
-        link: 'SIGNUP'
+        subject: 'Welcome to MTA',
+        text: 'To complete your account on MTA please follow the link below:',
+        link: 'Signup'
     },
     changeEmail: {
-        subject: 'Email change request on CITBO',
+        subject: 'Email change request on MTA',
         text: `<p>Dear [first-name] [last-name],</p>
-               <p> To confirm your new email address on CITBO please follow the link below:</p>`,
-        link: 'KLIK HIER'
+               <p> To confirm your new email address on MTA please follow the link below:</p>`,
+        link: 'Click here'
     },
     forgotPassword: {
-        subject: 'Password reset request on CITBO',
+        subject: 'Password reset request on MTA',
         text: `<p>Dear [first-name] [last-name],</p>
-               <p> To reset your password on CITBO please follow the link below:</p>`,
-        link: 'KLIK HIER'
+               <p> To reset your password on MTA please follow the link below:</p>`,
+        link: 'Click here'
     }
 }
