@@ -102,7 +102,7 @@ const Form = (props) => {
                     label={t("translation:height")}
                     isrequired="true"
                     onBlur={(e) => {
-                      setNumber(e, "height", props.setFieldValue, 5);
+                      setNumber(e, "height", props.setFieldValue, 5, 1);
                     }}
                   />
                 </Grid>
@@ -114,7 +114,7 @@ const Form = (props) => {
                     label={t("translation:volume")}
                     isrequired="true"
                     onBlur={(e) => {
-                      setNumber(e, "volume", props.setFieldValue, 1000);
+                      setNumber(e, "volume", props.setFieldValue, 1000, 1);
                     }}
                   />
                 </Grid>
