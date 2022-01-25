@@ -13,8 +13,6 @@ router.get("/", checkToken, controller.getDataEntries);
 
 router.get("/populate-data", checkToken, controller.populateData);
 
-router.get("/export", checkToken, controller.exportData);
-
 router.get(
   "/:did",
   checkToken,
@@ -25,11 +23,14 @@ router.get(
 router.post(
   "/",
   checkToken,
-  check("freightType").not().isEmpty(),
-  check("dateNomination").not().isEmpty(),
-  check("ship").not().isEmpty(),
-  check("shipLength").not().isEmpty(),
-  check("shipCategory").not().isEmpty(),
+  check("departureDate").not().isEmpty(),
+  check("transportData").not().isEmpty(),
+  check("productGroup").not().isEmpty(),
+  check("dispatchCity").not().isEmpty(),
+  check("destinationCity").not().isEmpty(),
+  check("dominantArea").not().isEmpty(),
+  check("pricePerTon").not().isEmpty(),
+  check("cargoWeight").not().isEmpty(),
   validateInputs,
   controller.createDataEntry
 );

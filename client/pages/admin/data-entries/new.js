@@ -11,33 +11,15 @@ import Button from "@material-ui/core/Button";
 import Api from "../../../axios/Api";
 import useUser from "../../../hooks/useUser";
 
-import { useTheme } from "@material-ui/core/styles";
-import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 
 import DataEntryForm from "../../../components/forms/data-entries/DataEntry";
 
 const fetcher = (url) => Api.get(url);
 
-const useStyles = makeStyles((theme) => ({
-  commentCont: {
-    maxWidth: "600px",
-    marginTop: "10px",
-    borderTop: `1px solid ${theme.palette.secondary.main}`,
-  },
-  comment: {
-    width: "100%",
-  },
-  buttonCont: {
-    [theme.breakpoints.down("xs")]: {
-      width: "100%",
-    },
-  },
-}));
-
 const initialValues = {
   departureDate: null,
-  transport: '',
+  transport: "",
   transportData: {},
   productGroup: "",
   dispatchCity: "",
@@ -56,20 +38,13 @@ export default function Page() {
     user && "/api/data-entries/populate-data?uid=" + user?._id,
     fetcher
   ).data?.data;
-  const theme = useTheme();
-  const classes = useStyles(theme);
 
-  const createDataEntry = async (values) => {
-    const data = {
-      user: user._id,
-      ...values,
-    };
+  const createDataEntry = async (values, formik) => {
 
-    console.log(data);
-    return;
     try {
       setLoading(true);
-      await Api.post("/api/data-entries", data);
+      await Api.post("/api/data-entries", values);
+      formik.resetForm(initialValues);
     } finally {
       setLoading(false);
     }

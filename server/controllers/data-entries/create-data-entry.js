@@ -1,71 +1,54 @@
-const User = require('../../models/user');
-const DataEntry = require('../../models/data-entry');
-const HttpError = require('../../utils/http-error');
+const User = require("../../models/user");
+const DataEntry = require("../../models/data-entry");
+const HttpError = require("../../utils/http-error");
 
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const createDataEntry = async (req, res, next) => {
+module.exports = async (req, res, next) => {
+  try {
+    const {
+      departureDate,
+      transportData,
+      productGroup,
+      dispatchCity,
+      destinationCity,
+      dominantArea,
+      pricePerTon,
+      cargoWeight,
+      comment,
+    } = req.body;
 
-    try { 
-        const { 
-            freightType,
-            dateNomination, 
-            ship, 
-            dwt, 
-            shipCategory, 
-            shipLength, 
-            shipWidth,
-            shipVolume,
-            shipProductGroup,
-            shipCoated,
-            shipHeated,
-            shipPiping,
-            shipProfile,
-            tanksQuantity,
-            shipFlag,
-            comment,
-            freightData } = req.body;
+    const user = await User.findById(req.user._id);
 
-        const user = await User.findById(req.user._id);
-
-        if(!user) {
-            throw new HttpError('user-not-found', 404);
-        }
- 
-        const newDataEntry = new DataEntry({
-            createdAt: new Date(),
-            comment,
-            freightType,
-            dateNomination,
-            shipTitle: ship,
-            shipLength,
-            dwt,
-            shipCategory,
-            shipWidth,
-            shipVolume,
-            shipProductGroup,
-            shipCoated,
-            shipHeated,
-            shipPiping,
-            shipProfile,
-            tanksQuantity,
-            shipFlag,
-            freightData,
-            user
-        })
-
-        const sess = await mongoose.startSession();
-        sess.startTransaction();
-        await newDataEntry.save({ session: sess });
-        user.dataEntries.push(newDataEntry);
-        await user.save({ session: sess });
-        await sess.commitTransaction();
-    
-        res.json({successMessage: 'data-entry-created'});
-
-    } catch (err) {
-        return next(err);
+    if (!user) {
+      throw new HttpError("user-not-found", 404);
     }
-}
 
-module.exports = createDataEntry;
+    const newDataEntry = new DataEntry({
+      createdAt: new Date(),
+      departureDate,
+      freightData: {
+        productGroup,
+        dispatchCity,
+        destinationCity,
+        dominantArea,
+        pricePerTon,
+        cargoWeight,
+        transportData,
+      },
+      comment,
+      user: req.user._id,
+    });
+
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    await newDataEntry.save({ session: sess });
+    user.dataEntries.push(newDataEntry);
+    await user.save({ session: sess });
+    await sess.commitTransaction();
+
+    res.json({ successMessage: "data-entry-created" });
+  } catch (err) {
+    return next(err);
+  }
+};

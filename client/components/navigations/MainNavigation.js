@@ -118,7 +118,7 @@ export default function MainNavigation() {
                             </ListItem>
                         </a>
                     </Link>
-                    <Link href="/admin/data-entries/time-charter?pp=&p=&s=">
+                    <Link href="/admin/data-entries?pp=&p=&s=">
                         <a className={classes.listItemInner}>
                             <ListItem
                                 button
