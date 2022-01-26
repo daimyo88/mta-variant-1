@@ -70,7 +70,7 @@ useEffect(() => {
         setFormLoading(true);
         const response = await Api.post('/api/users/profile/complete', values); 
         user.mutate(response.data);
-        router.push('/admin/stats');
+        router.push('/admin/stats/prices');
       } catch(e) {
         console.log(e);   
       } finally {

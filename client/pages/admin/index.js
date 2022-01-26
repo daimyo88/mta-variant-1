@@ -13,7 +13,7 @@ export default function Index() {
     if(user.data && !user.data?._id) {
       router.push('/login');
     } else if(user.data && user.data?._id){
-      router.push('/admin/stats');
+      router.push('/admin/stats/prices');
     }
   },[user]);
 

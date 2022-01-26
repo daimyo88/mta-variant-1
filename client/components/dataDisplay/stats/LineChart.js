@@ -49,16 +49,16 @@ const LineChart = (props) => {
             label: t('translation:average-prices'),
             data: props.data.all,
             fill: false,
-            backgroundColor: '#e37c31',
-            borderColor: '#e37c31',
+            backgroundColor: '#5289B5',
+            borderColor: '#5289B5',
             spanGaps: true
           },
           {
             label: t('translation:my-prices'),
             data: props.data.user,
             fill: false,
-            backgroundColor: '#75AF9E',
-            borderColor: '#75AF9E',
+            backgroundColor: '#33576b',
+            borderColor: '#33576b',
             spanGaps: true
           },
         ],

@@ -157,6 +157,26 @@ export default function Data(props) {
                     ? t("translation:yes")
                     : t("translation:no")}
             </Grid>
+
+            { info?.comment && <>
+                <Grid
+                item
+                xs={12}
+                style={{ marginTop: "15px" }}
+                className={classes.sectionHeading}
+            >
+                <Typography variant="h3">
+                    {t("translation:comment")}
+                </Typography>
+            </Grid>
+            <Grid
+                item
+                xs={12}
+                className={classes.dataRow}
+            >
+                { info?.comment }
+                </Grid>
+            </>}
         </Grid>
     );
 }

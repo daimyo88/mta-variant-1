@@ -38,7 +38,7 @@ export default function Login() {
     try {
       await Api.post("/api/auth/login", data);
       await user.mutate();
-      router.push("/admin/stats");
+      router.push("/admin/stats/prices");
     } catch (e) {
       console.log(e);
       setLoading(false);

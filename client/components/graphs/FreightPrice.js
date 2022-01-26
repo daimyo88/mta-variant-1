@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useTranslation from "next-translate/useTranslation";
+import { useRouter } from "next/router";
 import useSWR from "swr";
 import PageTitle from "../text/PageTitle";
 import Grid from "@material-ui/core/Grid";
@@ -7,10 +8,11 @@ import { useTheme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import CustomDatePicker from "../inputs/CustomDatePicker";
 import CustomSelect from "../inputs/CustomSelect";
-import PieChart from "../dataDisplay/stats/PieChart";
+import LineChart from "../dataDisplay/stats/LineChart";
 import startOfDay from "date-fns/startOfDay";
 import subDays from "date-fns/subDays";
 import endOfDay from "date-fns/endOfDay";
+import { formatDate } from "../../utils/formatDate";
 import Loader from "../loaders/OverlapLoader";
 
 import Api from "../../axios/Api";
@@ -18,7 +20,7 @@ import Api from "../../axios/Api";
 const useStyles = makeStyles((theme) => ({
     chartCont: {
         width: "calc(100% - 250px)",
-        minHeight: "600px",
+        minHeight: "535px",
         "@media(max-width: 1600px)": {
             minHeight: "450px",
         },
@@ -27,10 +29,6 @@ const useStyles = makeStyles((theme) => ({
         },
         [theme.breakpoints.down("sm")]: {
             minHeight: "150px",
-            width: "100%",
-            order: 2,
-        },
-        [theme.breakpoints.down("sm")]: {
             width: "100%",
             order: 2,
         },
@@ -64,23 +62,56 @@ export default function Page() {
     const classes = useStyles(theme);
     const [startPeriod, setStartPeriod] = useState(startDate);
     const [endPeriod, setEndPeriod] = useState(today);
+    const [productGroup, setProductGroup] = useState("all");
     const [transportCategory, setTransportCategory] = useState("all");
     const [area, setArea] = useState("all");
 
     const regions = useSWR("/api/locations/regions", fetcher).data?.data;
-
     const { data, mutate } = useSWR(
         regions &&
-            "/api/stats/product-groups-ratio?start=" +
+            "/api/stats/freight-price?start=" +
                 startPeriod +
                 "&end=" +
                 endPeriod +
+                "&pg=" +
+                productGroup +
                 "&tc=" +
                 transportCategory +
                 "&da=" +
                 area,
         fetcher
     );
+
+    const productGroups = [
+        {
+            _id: "all",
+            title: t("translation:all"),
+        },
+        {
+            _id: "food",
+            title: t("product-groups:food"),
+        },
+        {
+            _id: "electronics",
+            title: t("product-groups:electronics"),
+        },
+        {
+            _id: "gasoline-and-components",
+            title: t("product-groups:gasoline-and-components"),
+        },
+        {
+            _id: "chemicals",
+            title: t("product-groups:chemicals"),
+        },
+        {
+            _id: "heavy-products",
+            title: t("product-groups:heavy-products"),
+        },
+        {
+            _id: "other",
+            title: t("translation:other"),
+        },
+    ];
 
     const transportCategories = [
         {
@@ -125,20 +156,36 @@ export default function Page() {
     });
 
     return (
-        <div style={{ paddingBottom: "15px" }}>
+        <div style={{ marginBottom: "25px" }}>
             <Grid container>
-                <PageTitle>
-                    {`${t("translation:product-groups-ratio")} `}
-                </PageTitle>
+                <PageTitle>{t("translation:price-per-ton")}</PageTitle>
             </Grid>
             <Grid container spacing={2}>
                 <Grid item className={classes.chartCont}>
                     {!data && <Loader />}
-                    {data && !!data?.data?.all?.length && (
-                        <PieChart data={data?.data} />
-                    )} 
-
-                    {data && !data?.data?.all?.length && (
+                    {data && !!data?.data?.labels?.length && (
+                        <>
+                            <LineChart data={data?.data} />
+                            <Grid
+                                container
+                                spacing={2}
+                                justifyContent="space-between"
+                                style={{ marginTop: "10px" }}
+                            >
+                                <Grid item>
+                                    <span className={classes.periodLabel}>
+                                        {formatDate(startPeriod)}
+                                    </span>
+                                </Grid>
+                                <Grid item>
+                                    <span className={classes.periodLabel}>
+                                        {formatDate(endPeriod)}
+                                    </span>
+                                </Grid>
+                            </Grid>{" "}
+                        </>
+                    )}
+                    {data && !data?.data?.labels?.length && (
                         <Grid
                             container
                             className={classes.noData}
@@ -173,7 +220,18 @@ export default function Page() {
                         </Grid>
                         <Grid item md={12} sm={6} xs={12}>
                             <CustomSelect
-                                id="shipCategory"
+                                id="productGroup"
+                                label={t("translation:product-group")}
+                                changeHandler={(e) => {
+                                    setProductGroup(e.target.value);
+                                }}
+                                options={productGroups}
+                                value={productGroup}
+                            />
+                        </Grid>
+                        <Grid item md={12} sm={6} xs={12}>
+                            <CustomSelect
+                                id="transportCategory"
                                 label={t("translation:transport-category")}
                                 changeHandler={(e) => {
                                     setTransportCategory(e.target.value);
